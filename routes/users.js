@@ -14,7 +14,6 @@ router.get('/', check_authentication, check_authorization(constants.MOD_PERMISSI
   CreateSuccessResponse(res, 200, users);
 });
 
-// POST route with validation
 router.post(
   '/',
   [
@@ -31,14 +30,13 @@ router.post(
     try {
       let body = req.body;
       let newUser = await userController.CreateAnUser(body.username, body.password, body.email, body.role);
-      CreateSuccessResponse(res, 200, newUser)
-    } catch (rror) {
-      CreateErrorResponse(res, 404, error.message)
+      CreateSuccessResponse(res, 200, newUser);
+    } catch (error) {
+      CreateErrorResponse(res, 404, error.message);
     }
   }
 );
 
-// PUT route with validation
 router.put(
   '/:id',
   [
@@ -55,7 +53,7 @@ router.put(
     try {
       let body = req.body;
       let updatedResult = await userController.UpdateAnUser(req.params.id, body);
-      CreateSuccessResponse(res, 200, updatedResult)
+      CreateSuccessResponse(res, 200, updatedResult);
     } catch (error) {
       next(error);
     }
